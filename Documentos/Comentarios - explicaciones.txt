@@ -1,0 +1,17 @@
+Comentarios - explicaciones
+
+1) Con respecto a los usuarios de la app, decidimos modelarlos como una única clase Usuario ya que si bien estos pueden ser transeúntes o cuidadores, pueden ser ambos también. Si hicieramos dos clases distintas, Transeunte y Cuidador, se complicaría pasar de una a otra. Además no identificamos algún método especifico para cada tipo de usuario, entonces nada nos impide unificar todo en una única clase.
+
+2) Con respecto a los viajes, una clase Viaje nos pareció lo mejor, la cual contiene todos los atributos relevantes a un viaje, incluída la referencia al transeúnte y la lista de cuidadores. Agregamos el método "agregarCuidador(Cuidador)" ya que cada vez que un posible cuidador acepte el viaje, se agrega este mismo a la lista del Viaje.
+
+3) Para el cálculo de la distancia, el patrón Adapter nos pareció el indicado ya que nos permite adaptar a nuestro dominio la api Distance Matrix API. En un principio pensamos en la clase Viaje como la responsable de calcular el tiempo estimado, pero luego modificamos esto y creamos una nueva clase CalculadorTiempo que se encargue de esto, nos pareció más cohesivo y mantenible. Además, leyendo el punto 2, cuando se agregan varias paradas para un viaje, este CalculadorTiempo nos permite calcular el tiempo entre dos direcciones cualquiera, desacoplándonos del viaje en sí.
+
+4) Para las notificaciones, modelamos una clase Notificador y una clase Notificacion, que nos permite cumplir con el requerimiento de las notificaciones. La Notificacion tiene el mensaje y el receptor. Quizás se podrían agregar más atributos, pero para los requerimientos dados nos pareció suficiente. 
+En cuanto al Notificador en sí, dado que el enunciado deja "abierto" el tema de qué tipo de notificaciones se podrán hacer, simplemente dejamos modelado un adapter para las notificaciones que sean dentro de la aplicación, tales como las notifiaciones Push y las In-App. Si el dia de mañana se quisieran agregar notifiaciones por otros medios, tales como Email o WhatsApp, se podría pensar en un strategy que permita ir cambiando la estrategia de notifiación. 
+
+5) Para las reacciones ante incidentes, un strategy donde el usuario puede elegir cómo reaccionar ante un incidente permite cumplir con el requerimiento. 
+
+PUNTO 2
+
+1) Al agregarse la posibilidad de que un viaje tenga varias paradas, la clase Viaje puede modificarse, donde en vez de tener dos atributos "destinoInicial" y "destinoFinal" se tenga un atributo que sea una lista con las paradas que va a tener. Para esto se crea una clase Parada la cual tendrá la direccion inicial y la final, además de, en caso de tenerlo, el tiempo de espera por parada.
+2) Gracias a que modelamos el CalculadorTiempo, para calcular el tiempo aproximado para un viaje podemos simplemente iterar por la lista de paradas y calcular el tiempo entre cada par de paradas.

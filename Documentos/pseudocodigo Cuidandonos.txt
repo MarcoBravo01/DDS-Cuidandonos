@@ -1,0 +1,47 @@
+Caso de uso:
+el transeúnte presiona el boton "comenzar"
+----
+Viaje
+>> calcularDistancia(){
+	return this.adapterDistancia().distanciaEntre(this.destinoInicial() , this.destinoFinal() );
+}
+>> calcularTiempo(){
+	//
+	 	this.calcularDistancia()
+	 //	
+}
+
+
+PUNTO 2 --> Ahora un transeúnte también podrá escoger un destino con varias paradas; esto es:
+Posición actual -> primer destino -> segundo destino -> ... -> destino final.
+
+-----
+
+Se modifica atributo "destino" de clase Viaje y se agrega nueva clase Parada
+
+Class Parada{
+	direccion: Direccion
+	int tiempoDetencion;
+	boolean avisaEstadoSalud;
+
+}
+
+Class Viaje{
+	//
+	paradas = List<Parada>
+	//
+}
+
+#Viaje 
+>> calcularTiempo(){
+	float tiempoTotal = 0;
+	for(int i= 0; i< paradas.size() -1 ; i++){
+		tiempoTotal += CalculadorTiempo.calcularTiempo(paradas[i].getDireccion(), paradas[i+1].getDireccion()) ;
+		if(!parada[i].isAvisaEstadoSalud()){
+			tiempoTotal += parada.getTiempoDetencion();
+		}
+	}
+	
+	return tiempoTotal;
+}
+
